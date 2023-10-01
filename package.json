@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "start": "node app.js",
     "watch": "node --watch app.js",
@@ -20,6 +21,7 @@
     "extends": "standard"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.14",
     "standard": "17.1.0"
   }
 }

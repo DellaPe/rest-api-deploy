@@ -1,4 +1,4 @@
-const z = require('zod')
+import z from 'zod'
 
 const movieSchema = z.object({
   title: z.string({
@@ -21,12 +21,10 @@ const movieSchema = z.object({
   )
 })
 
-const validateMovie = (object) => {
+export const validateMovie = (object) => {
   return movieSchema.safeParse(object) // mas facil de manjear lo errores con safeParse que con parse
 }
 
-const validatePatchMovie = (object) => {
+export const validatePatchMovie = (object) => {
   return movieSchema.partial().safeParse(object) // Como typeScript ? => hace que todas las propiedades sean opcionales y las valida como el
 }
-
-module.exports = { validateMovie, validatePatchMovie }

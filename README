@@ -1,7 +1,0 @@
-1. Inicializar: npm i
-
-2. Levantar app: 
-  1 - npm start o npm watch
-  2 - npx servor ./web
-
-  

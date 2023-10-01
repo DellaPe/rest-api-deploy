@@ -31,16 +31,16 @@ POST http://localhost:1234/movies
 Content-Type: application/json
 
 {
-"sql": "SELECT * FROM users",
-"title": "The Godfather",
-"year": 1975,
-"director": "Francis Ford Coppola",
-"duration": 175,
-"poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
-"genre": [
-  "Crime",
-  "Drama"
-]
+  "sql": "SELECT * FROM users",
+  "title": "The Godfather",
+  "year": 1975,
+  "director": "Francis Ford Coppola",
+  "duration": 175,
+  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
+  "genre": [
+    "Crime",
+    "Drama"
+  ]
 }
 
 ### Crear una película ERROR
@@ -52,7 +52,7 @@ Content-Type: application/json,
 "director": "Francis Ford Coppola",
 }
 
-### Actualizar una película 
+### Actualizar una película  (Batman)
 PATCH http://localhost:1234/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
 Content-Type: application/json
 
@@ -61,3 +61,21 @@ Content-Type: application/json
 "title": "EEE TE CAMBIE",
 "year": 2010
 }
+
+### Actualizar una película ERROR
+PATCH http://localhost:1234/movies/1
+Content-Type: application/json
+
+{
+"title": "EEE TE CAMBIE",
+"year": 2010
+}
+
+### Borrar una película (Batman)
+DELETE http://localhost:1234/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
+
+### Borra test
+DELETE http://localhost:1234/movies/381aae76-e02d-40a4-b3fc-7f88612368ec
+
+### Borrar una película ERROR
+DELETE http://localhost:1234/movies/1
