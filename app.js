@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const crypto = require('node:crypto')
 const movies = require('./movies.json')
 const { validateMovie, validatePatchMovie } = require('./schemas/movies')
@@ -32,6 +33,14 @@ const ACCEPTED_ORIGINS = [
 
 const app = express()
 app.disable('x-powered-by')
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (ACCEPTED_ORIGINS.includes(origin)) return callback(null, true)
+    if (!origin) return callback(null, true)
+    return callback(new Error('Not allowed by CORS'))
+  }
+}))
 app.use(express.json()) // Middleware para parsear el body de las peticiones
 
 app.get(URL_GET.HOME, (req, res) => {
@@ -39,12 +48,6 @@ app.get(URL_GET.HOME, (req, res) => {
 })
 
 app.get(URL_GET.MOVIES, (req, res) => {
-  const origen = req.headers.origin // No siempre manda el header origin, esto sucede cuando la peticion es del mismo origen.
-  if (ACCEPTED_ORIGINS.includes(origen) || !origen) {
-    // res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Origin', origen) // Fix CORS: todos los orignes que no sean nuestro propio origen, estan permitidos
-  }
-
   const { genre } = req.query // query params
   if (genre) {
     // const moviesByGenre = movies.filter(movie => movie.genre.includes(genre)) // Case sensitive
@@ -89,25 +92,11 @@ app.patch(URL_PATCH.MOVIES_ID, (req, res) => {
 })
 
 app.delete(URL_DELETE.MOVIES_ID, (req, res) => {
-  const origen = req.headers.origin // No siempre manda el header origin, esto sucede cuando la peticion es del mismo origen.
-  if (ACCEPTED_ORIGINS.includes(origen) || !origen) {
-    res.header('Access-Control-Allow-Origin', origen) // Fix CORS: todos los orignes que no sean nuestro propio origen, estan permitidos
-  }
-
   const { id } = req.params
   const movieIndex = movies.findIndex(movie => movie.id === id)
   if (movieIndex === -1) return res.status(404).json({ error: 'Movie not found' })
   movies.splice(movieIndex, 1)
   res.status(204).json('Movie deleted') // No content
-})
-
-app.options(URL_DELETE.MOVIES_ID, (req, res) => {
-  const origen = req.headers.origin // No siempre manda el header origin, esto sucede cuando la peticion es del mismo origen.
-  if (ACCEPTED_ORIGINS.includes(origen) || !origen) {
-    res.header('Access-Control-Allow-Origin', origen)
-    res.header('Access-Control-Allow-Methods', 'DELETE, GET, PATCH, POST, PUT')
-  }
-  res.send(200)
 })
 
 const PORT = process.env.PORT ?? 1234 // Es necesario para el deploy
