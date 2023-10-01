@@ -1,4 +1,4 @@
-1. Inicializar: En carpeta de origen "npm i"
+1. Inicializar: npm i
 
 2. Levantar app: 
   1 - npm start o npm watch
