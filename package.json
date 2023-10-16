@@ -5,8 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "watch": "node --watch app.js",
+    "start:local": "node --watch ./servers/local.js",
+    "start": "node ./servers/local.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,7 +21,7 @@
     "extends": "standard"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.14",
+    "@types/cors": "2.8.14",
     "standard": "17.1.0"
   }
 }
