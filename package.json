@@ -7,7 +7,7 @@
   "scripts": {
     "start:local": "node --watch ./servers/local.js",
     "start:mongodb": "node  --watch ./servers/mongodb.js",
-    "start": "node ./servers/mongodb.js",
+    "start": "node ./servers/local.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
